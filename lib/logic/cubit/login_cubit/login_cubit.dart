@@ -9,7 +9,6 @@ class LoginCubit extends Cubit<LoginState> {
   Future login() async {
     try {
       emit(LoginLoading());
-      await Future.delayed(Duration(seconds: 2));
     } catch (e) {
       emit(LoginFailed(errorMsg: e.toString()));
     }

@@ -89,6 +89,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 .hasMatch(value!)) {
                               return 'Invalid NIC Number!';
                             }
+                            return null;
                           },
                         ),
                         SizedBox(
@@ -110,6 +111,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             if (value!.isEmpty) {
                               return 'Name is empty!';
                             }
+                            return null;
                           },
                         ),
                         SizedBox(
@@ -132,6 +134,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             if (value!.isEmpty) {
                               return 'Ae is Empty';
                             }
+                            return null;
                           },
                         ),
                         SizedBox(
@@ -153,6 +156,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             if (value!.isEmpty) {
                               return 'Address is empty!';
                             }
+                            return null;
                           },
                         ),
                         SizedBox(
@@ -174,6 +178,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             if (value!.isEmpty) {
                               return 'Profession is empty!';
                             }
+                            return null;
                           },
                         ),
                         SizedBox(
@@ -195,6 +200,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             if (value!.isEmpty) {
                               return 'Affiliation is empty!';
                             }
+                            return null;
                           },
                         ),
                         SizedBox(
@@ -221,6 +227,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 .hasMatch(value)) {
                               return 'Invalid Email address!';
                             }
+                            return null;
                           },
                         ),
                         SizedBox(
@@ -246,6 +253,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             if (value.length < 6) {
                               return 'Password must be at least 6 characters!';
                             }
+                            return null;
                           },
                         ),
                         SizedBox(

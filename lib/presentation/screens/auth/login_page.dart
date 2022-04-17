@@ -98,6 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                                 .hasMatch(value)) {
                               return 'Invalid Email address!';
                             }
+                            return null;
                           },
                         ),
                         SizedBox(
@@ -124,6 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                             if (value.length < 6) {
                               return 'Password must be at least 6 characters!';
                             }
+                            return null;
                           },
                         ),
                         SizedBox(
