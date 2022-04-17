@@ -18,9 +18,15 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
 
+  TextEditingController nicController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController professionController = TextEditingController();
+  TextEditingController affiliationController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
   register() {
     if (_formKey.currentState!.validate()) {
       Navigator.pushNamed(
@@ -46,7 +52,7 @@ class _RegisterPageState extends State<RegisterPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 30.h,
+                  height: 3.h,
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.w),
@@ -73,14 +79,121 @@ class _RegisterPageState extends State<RegisterPage> {
                               borderRadius: BorderRadius.circular(2.w),
                             ),
                             prefixIcon: const Icon(
+                              Icons.card_membership_rounded,
+                            ),
+                            labelText: 'NIC',
+                          ),
+                          validator: (value) {
+                            if (!RegExp(
+                                    r'^(?:19|20)?\d{2}[0-9]{10}|[0-9]{9}[x|X|v|V]$')
+                                .hasMatch(value!)) {
+                              return 'Invalid NIC Number!';
+                            }
+                          },
+                        ),
+                        SizedBox(
+                          height: 3.h,
+                        ),
+                        TextFormField(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          controller: nameController,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(2.w),
+                            ),
+                            prefixIcon: const Icon(
                               Icons.person_rounded,
                             ),
-                            hintText: 'Ex: Martin Garrix',
                             labelText: 'Name',
                           ),
                           validator: (value) {
                             if (value!.isEmpty) {
                               return 'Name is empty!';
+                            }
+                          },
+                        ),
+                        SizedBox(
+                          height: 3.h,
+                        ),
+                        TextFormField(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          controller: ageController,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(2.w),
+                            ),
+                            prefixIcon: const Icon(
+                              Icons.calendar_today_rounded,
+                            ),
+                            labelText: 'Age',
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Ae is Empty';
+                            }
+                          },
+                        ),
+                        SizedBox(
+                          height: 3.h,
+                        ),
+                        TextFormField(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          controller: addressController,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(2.w),
+                            ),
+                            prefixIcon: const Icon(
+                              Icons.house_rounded,
+                            ),
+                            labelText: 'Address',
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Address is empty!';
+                            }
+                          },
+                        ),
+                        SizedBox(
+                          height: 3.h,
+                        ),
+                        TextFormField(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          controller: professionController,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(2.w),
+                            ),
+                            prefixIcon: const Icon(
+                              Icons.work_rounded,
+                            ),
+                            labelText: 'Profession',
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Profession is empty!';
+                            }
+                          },
+                        ),
+                        SizedBox(
+                          height: 3.h,
+                        ),
+                        TextFormField(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          controller: affiliationController,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(2.w),
+                            ),
+                            prefixIcon: const Icon(
+                              Icons.contacts_rounded,
+                            ),
+                            labelText: 'Affiliation',
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Affiliation is empty!';
                             }
                           },
                         ),
@@ -97,7 +210,6 @@ class _RegisterPageState extends State<RegisterPage> {
                             prefixIcon: const Icon(
                               Icons.email_rounded,
                             ),
-                            hintText: 'Ex: martingarrix@bds.com',
                             labelText: 'Email',
                           ),
                           validator: (value) {
@@ -125,7 +237,6 @@ class _RegisterPageState extends State<RegisterPage> {
                             prefixIcon: const Icon(
                               Icons.password_rounded,
                             ),
-                            hintText: '* * * * * *',
                             labelText: 'Password',
                           ),
                           validator: (value) {

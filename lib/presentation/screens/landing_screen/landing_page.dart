@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sizer/sizer.dart';
 import 'package:slbfe_client/core/constants/strings.dart';
 import 'package:slbfe_client/core/themes/app_text_styles.dart';
 import 'package:slbfe_client/presentation/router/app_router.dart';
@@ -41,9 +42,19 @@ class _LandingPageState extends State<LandingPage> {
         backgroundColor: AppColors.lightElv0,
         body: SafeArea(
           child: Center(
-            child: Text(
-              Strings.appTitle,
-              style: AppTextStyles.h1Primary,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  Strings.landingImage,
+                  width: 50.w,
+                  fit: BoxFit.fitWidth,
+                ),
+                Text(
+                  Strings.appTitle,
+                  style: AppTextStyles.p1Primary,
+                ),
+              ],
             ),
           ),
         ),

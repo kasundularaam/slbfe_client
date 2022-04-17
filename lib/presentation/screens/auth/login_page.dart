@@ -5,6 +5,7 @@ import 'package:sizer/sizer.dart';
 import 'package:slbfe_client/core/themes/app_text_styles.dart';
 import 'package:slbfe_client/presentation/screens/auth/widgets/auth_button.dart';
 
+import '../../../core/constants/strings.dart';
 import '../../../core/themes/app_colors.dart';
 import '../../router/app_router.dart';
 
@@ -24,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
     if (_formKey.currentState!.validate()) {
       Navigator.pushNamed(
         context,
-        AppRouter.landingPage,
+        AppRouter.homeScreen,
       );
     }
   }
@@ -45,7 +46,18 @@ class _LoginPageState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 45.h,
+                  height: 5.h,
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Image.asset(
+                    Strings.landingImage,
+                    width: 50.w,
+                    fit: BoxFit.fitWidth,
+                  ),
+                ),
+                SizedBox(
+                  height: 15.h,
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.w),

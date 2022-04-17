@@ -27,7 +27,7 @@ class AppTextStyles {
 
   static TextStyle h2Primary = TextStyle(
       color: AppColors.primaryColor,
-      fontSize: 18.sp,
+      fontSize: 22.sp,
       fontWeight: FontWeight.bold);
 
   static TextStyle h2Light = TextStyle(
