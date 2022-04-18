@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
 import 'package:slbfe_client/core/constants/strings.dart';
 import 'package:slbfe_client/core/themes/app_text_styles.dart';
+import 'package:slbfe_client/data/shared/shared_service.dart';
 import 'package:slbfe_client/presentation/router/app_router.dart';
 
 import '../../../core/themes/app_colors.dart';
@@ -30,9 +31,19 @@ class _LandingPageState extends State<LandingPage> {
           (route) => false,
         ),
       );
+
+  Future navigate() async {
+    bool isUserIn = await SharedServices.isUserIn();
+    if (isUserIn) {
+      goToHome();
+    } else {
+      goToAuth();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    goToAuth();
+    navigate();
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
         statusBarColor: AppColors.lightElv0,

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:slbfe_client/logic/cubit/login_cubit/login_cubit.dart';
+import 'package:slbfe_client/logic/cubit/regser_cubit/register_cubit.dart';
 
 import '../../core/exceptions/route_exception.dart';
 import '../screens/auth/login_page.dart';
@@ -26,11 +29,17 @@ class AppRouter {
         );
       case loginPage:
         return MaterialPageRoute(
-          builder: (_) => const LoginPage(),
+          builder: (_) => BlocProvider(
+            create: (context) => LoginCubit(),
+            child: const LoginPage(),
+          ),
         );
       case registerPage:
         return MaterialPageRoute(
-          builder: (_) => const RegisterPage(),
+          builder: (_) => BlocProvider(
+            create: (context) => RegisterCubit(),
+            child: const RegisterPage(),
+          ),
         );
       default:
         throw const RouteException('Route not found!');

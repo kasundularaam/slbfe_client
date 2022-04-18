@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:slbfe_client/logic/cubit/complaints_cubit/complaints_cubit.dart';
+import 'package:slbfe_client/logic/cubit/new_complaint_cubit/new_complaint_cubit.dart';
+import 'package:slbfe_client/logic/cubit/slbfe_user_cubit/slbfe_user_cubit.dart';
+import 'package:slbfe_client/logic/cubit/upload_docs_cubit/upload_docs_cubit.dart';
 import 'package:slbfe_client/presentation/screens/home_screen/pages/complaint_page.dart';
 
 import '../../../core/themes/app_colors.dart';
@@ -20,9 +25,21 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  static const List<Widget> _widgetOptions = [
-    HomePage(),
-    ComplaintPage(),
+  static List<Widget> widgetOptions = [
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => SlbfeUserCubit()),
+        BlocProvider(create: (context) => UploadDocsCubit()),
+      ],
+      child: const HomePage(),
+    ),
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => ComplaintsCubit()),
+        BlocProvider(create: (context) => NewComplaintCubit()),
+      ],
+      child: const ComplaintPage(),
+    ),
   ];
   @override
   Widget build(BuildContext context) {
@@ -34,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         backgroundColor: AppColors.lightElv1,
         body: SafeArea(
-          child: _widgetOptions.elementAt(_selectedIndex),
+          child: widgetOptions.elementAt(_selectedIndex),
         ),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[

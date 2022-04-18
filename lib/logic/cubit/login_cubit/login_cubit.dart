@@ -1,14 +1,25 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:slbfe_client/data/models/slbfe_user.dart';
+import 'package:slbfe_client/data/repositories/repository.dart';
+import 'package:slbfe_client/data/shared/shared_service.dart';
 
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
 
-  Future login() async {
+  Future login({required String nic, required String password}) async {
     try {
       emit(LoginLoading());
+      bool succeed = await Repository.login(nic: nic, password: password);
+      if (succeed) {
+        SlbfeUser user = await Repository.getSlbfeUser(nic: nic);
+        SharedServices.addUser(nic: nic, uid: user.id);
+        emit(LoginSucceed());
+      } else {
+        emit(LoginFailed(errorMsg: "Wrong credentials"));
+      }
     } catch (e) {
       emit(LoginFailed(errorMsg: e.toString()));
     }

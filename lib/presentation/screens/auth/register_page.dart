@@ -1,7 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:location/location.dart';
 import 'package:sizer/sizer.dart';
+import 'package:slbfe_client/data/models/new_user.dart';
+import 'package:slbfe_client/data/repositories/location_services.dart';
+import 'package:slbfe_client/logic/cubit/regser_cubit/register_cubit.dart';
 
 import '../../../core/themes/app_colors.dart';
 import '../../../core/themes/app_text_styles.dart';
@@ -27,13 +32,37 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController affiliationController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+  LocationData? location;
+
   register() {
     if (_formKey.currentState!.validate()) {
-      Navigator.pushNamed(
-        context,
-        AppRouter.landingPage,
-      );
+      if (location != null) {
+        NewUser user = NewUser(
+          name: nameController.text,
+          nic: nicController.text,
+          age: ageController.text,
+          address: addressController.text,
+          latitude: location!.latitude.toString(),
+          longitude: location!.longitude.toString(),
+          profession: professionController.text,
+          email: emailController.text,
+          affiliation: affiliationController.text,
+          password: passwordController.text,
+        );
+
+        BlocProvider.of<RegisterCubit>(context).register(user: user);
+      }
     }
+  }
+
+  Future getLocation() async {
+    location = await LocationServices.locationData;
+  }
+
+  @override
+  void initState() {
+    getLocation();
+    super.initState();
   }
 
   @override
@@ -73,7 +102,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       children: <Widget>[
                         TextFormField(
                           autovalidateMode: AutovalidateMode.onUserInteraction,
-                          controller: nameController,
+                          controller: nicController,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(2.w),
@@ -259,9 +288,33 @@ class _RegisterPageState extends State<RegisterPage> {
                         SizedBox(
                           height: 3.h,
                         ),
-                        AuthButton(
-                          text: "Register",
-                          onTap: () => register(),
+                        BlocConsumer<RegisterCubit, RegisterState>(
+                          listener: (context, state) {
+                            if (state is RegisterSucceed) {
+                              Navigator.pushNamed(
+                                context,
+                                AppRouter.landingPage,
+                              );
+                            }
+                            if (state is RegisterFailed) {
+                              SnackBar snackBar =
+                                  SnackBar(content: Text(state.errorMsg));
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            }
+                          },
+                          builder: (context, state) {
+                            if (state is RegisterLoading) {
+                              return const Center(
+                                child: CircularProgressIndicator(
+                                    color: AppColors.primaryColor),
+                              );
+                            }
+                            return AuthButton(
+                              text: "Register",
+                              onTap: () => register(),
+                            );
+                          },
                         ),
                         SizedBox(
                           height: 5.h,

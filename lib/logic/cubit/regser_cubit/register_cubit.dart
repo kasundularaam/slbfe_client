@@ -1,8 +1,24 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:slbfe_client/data/models/new_user.dart';
+import 'package:slbfe_client/data/repositories/repository.dart';
+
+import '../../../data/models/slbfe_user.dart';
+import '../../../data/shared/shared_service.dart';
 
 part 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit() : super(RegisterInitial());
+
+  Future register({required NewUser user}) async {
+    try {
+      emit(RegisterLoading());
+      SlbfeUser slbfeUser = await Repository.register(newUser: user);
+      SharedServices.addUser(nic: slbfeUser.nic, uid: slbfeUser.id);
+      emit(RegisterSucceed());
+    } catch (e) {
+      emit(RegisterFailed(errorMsg: e.toString()));
+    }
+  }
 }

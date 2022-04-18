@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
 import 'package:slbfe_client/core/themes/app_text_styles.dart';
+import 'package:slbfe_client/logic/cubit/login_cubit/login_cubit.dart';
 import 'package:slbfe_client/presentation/screens/auth/widgets/auth_button.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/constants/strings.dart';
 import '../../../core/themes/app_colors.dart';
@@ -19,14 +21,12 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController emailController = TextEditingController();
+  TextEditingController nicController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   login() {
     if (_formKey.currentState!.validate()) {
-      Navigator.pushNamed(
-        context,
-        AppRouter.homeScreen,
-      );
+      BlocProvider.of<LoginCubit>(context)
+          .login(nic: nicController.text, password: passwordController.text);
     }
   }
 
@@ -78,25 +78,21 @@ class _LoginPageState extends State<LoginPage> {
                       children: <Widget>[
                         TextFormField(
                           autovalidateMode: AutovalidateMode.onUserInteraction,
-                          controller: emailController,
+                          controller: nicController,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(2.w),
                             ),
                             prefixIcon: const Icon(
-                              Icons.email_rounded,
+                              Icons.card_membership_rounded,
                             ),
-                            hintText: 'Ex: martingarrix@bds.com',
-                            labelText: 'Email',
+                            labelText: 'NIC',
                           ),
                           validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Email is empty!';
-                            }
                             if (!RegExp(
-                                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                .hasMatch(value)) {
-                              return 'Invalid Email address!';
+                                    r'^(?:19|20)?\d{2}[0-9]{10}|[0-9]{9}[x|X|v|V]$')
+                                .hasMatch(value!)) {
+                              return 'Invalid NIC Number!';
                             }
                             return null;
                           },
@@ -131,9 +127,33 @@ class _LoginPageState extends State<LoginPage> {
                         SizedBox(
                           height: 3.h,
                         ),
-                        AuthButton(
-                          text: "Log In",
-                          onTap: () => login(),
+                        BlocConsumer<LoginCubit, LoginState>(
+                          listener: (context, state) {
+                            if (state is LoginSucceed) {
+                              Navigator.pushNamed(
+                                context,
+                                AppRouter.landingPage,
+                              );
+                            }
+                            if (state is LoginFailed) {
+                              SnackBar snackBar =
+                                  SnackBar(content: Text(state.errorMsg));
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            }
+                          },
+                          builder: (context, state) {
+                            if (state is LoginLoading) {
+                              return const Center(
+                                child: CircularProgressIndicator(
+                                    color: AppColors.primaryColor),
+                              );
+                            }
+                            return AuthButton(
+                              text: "Log In",
+                              onTap: () => login(),
+                            );
+                          },
                         ),
                         SizedBox(
                           height: 3.h,

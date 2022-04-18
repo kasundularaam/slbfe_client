@@ -1,9 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-
-class SlbfeUser {
-  final String id;
+class NewUser {
   final String name;
   final String nic;
   final String age;
@@ -14,10 +11,7 @@ class SlbfeUser {
   final String email;
   final String affiliation;
   final String password;
-  final bool employed;
-  final List<String> connections;
-  SlbfeUser({
-    required this.id,
+  NewUser({
     required this.name,
     required this.nic,
     required this.age,
@@ -28,12 +22,9 @@ class SlbfeUser {
     required this.email,
     required this.affiliation,
     required this.password,
-    required this.employed,
-    required this.connections,
   });
 
-  SlbfeUser copyWith({
-    String? id,
+  NewUser copyWith({
     String? name,
     String? nic,
     String? age,
@@ -44,11 +35,8 @@ class SlbfeUser {
     String? email,
     String? affiliation,
     String? password,
-    bool? employed,
-    List<String>? connections,
   }) {
-    return SlbfeUser(
-      id: id ?? this.id,
+    return NewUser(
       name: name ?? this.name,
       nic: nic ?? this.nic,
       age: age ?? this.age,
@@ -59,14 +47,11 @@ class SlbfeUser {
       email: email ?? this.email,
       affiliation: affiliation ?? this.affiliation,
       password: password ?? this.password,
-      employed: employed ?? this.employed,
-      connections: connections ?? this.connections,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'name': name,
       'nic': nic,
       'age': age,
@@ -77,14 +62,11 @@ class SlbfeUser {
       'email': email,
       'affiliation': affiliation,
       'password': password,
-      'employed': employed,
-      'connections': connections,
     };
   }
 
-  factory SlbfeUser.fromMap(Map<String, dynamic> map) {
-    return SlbfeUser(
-      id: map['id'] ?? '',
+  factory NewUser.fromMap(Map<String, dynamic> map) {
+    return NewUser(
       name: map['name'] ?? '',
       nic: map['nic'] ?? '',
       age: map['age'] ?? '',
@@ -95,27 +77,24 @@ class SlbfeUser {
       email: map['email'] ?? '',
       affiliation: map['affiliation'] ?? '',
       password: map['password'] ?? '',
-      employed: map['employed'] ?? false,
-      connections: List<String>.from(map['connections'] ?? []),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory SlbfeUser.fromJson(String source) =>
-      SlbfeUser.fromMap(json.decode(source));
+  factory NewUser.fromJson(String source) =>
+      NewUser.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'SlbfeUser(id: $id, name: $name, nic: $nic, age: $age, address: $address, latitude: $latitude, longitude: $longitude, profession: $profession, email: $email, affiliation: $affiliation, password: $password, employed: $employed, connections: $connections)';
+    return 'NewUser(name: $name, nic: $nic, age: $age, address: $address, latitude: $latitude, longitude: $longitude, profession: $profession, email: $email, affiliation: $affiliation, password: $password)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is SlbfeUser &&
-        other.id == id &&
+    return other is NewUser &&
         other.name == name &&
         other.nic == nic &&
         other.age == age &&
@@ -125,15 +104,12 @@ class SlbfeUser {
         other.profession == profession &&
         other.email == email &&
         other.affiliation == affiliation &&
-        other.password == password &&
-        other.employed == employed &&
-        listEquals(other.connections, connections);
+        other.password == password;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^
-        name.hashCode ^
+    return name.hashCode ^
         nic.hashCode ^
         age.hashCode ^
         address.hashCode ^
@@ -142,8 +118,6 @@ class SlbfeUser {
         profession.hashCode ^
         email.hashCode ^
         affiliation.hashCode ^
-        password.hashCode ^
-        employed.hashCode ^
-        connections.hashCode;
+        password.hashCode;
   }
 }
