@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:http_parser/http_parser.dart';
 
 import 'package:slbfe_client/core/converters/http_list_converter.dart';
 import 'package:slbfe_client/data/data_providers/data_provider.dart';
@@ -28,23 +29,24 @@ class Repository {
   static Future<bool> login(
       {required String nic, required String password}) async {
     try {
-      final res = await http.post(
-          Uri.parse(
-            DataProvider.loginUserUrl,
-          ),
-          headers: <String, String>{
-            "Content-Type": "application/json; charset=UTF-8",
-          },
-          body:
-              jsonEncode(<String, String>{"nic": nic, "passsword": password}));
+      final res = await http.get(
+        Uri.parse(
+          DataProvider.loginUserUrl(nic: nic, password: password),
+        ),
+        headers: <String, String>{
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+      );
+      log(res.statusCode.toString());
       if (res.statusCode == 200) {
         if (jsonDecode(res.body)) {
           return true;
         } else {
           return false;
         }
+      } else {
+        throw "An error occurred";
       }
-      throw "An error occurred";
     } catch (e) {
       throw "can not connect to the server!";
     }
@@ -76,20 +78,25 @@ class Repository {
       required String document,
       required String name}) async {
     try {
-      final res = await http.post(
+      final request = http.MultipartRequest(
+          "PUT",
           Uri.parse(
             DataProvider.uploadDocsUrl(nic: nic),
-          ),
-          headers: <String, String>{
-            "Content-Type": "application/json; charset=UTF-8",
-          },
-          body: jsonEncode(
-              <String, String>{"QuolificationName": name, "Image": document}));
+          ))
+        ..fields['QuolificationName'] = name
+        ..files.add(await http.MultipartFile.fromString('Image', document,
+            contentType: MediaType('application', 'pdf')));
+
+      final res = await request.send();
+
+      log(res.statusCode.toString());
       if (res.statusCode == 200) {
         return true;
+      } else {
+        return false;
       }
-      throw "An error occurred";
     } catch (e) {
+      log(e.toString());
       throw "can not connect to the server!";
     }
   }
@@ -103,8 +110,9 @@ class Repository {
       );
       if (res.statusCode == 200) {
         return HttpListConverter.parseComplaints(res.body);
+      } else {
+        throw "Failed to load data";
       }
-      throw "Failed to load data";
     } catch (e) {
       throw "can not connect to the server!";
     }

@@ -48,30 +48,38 @@ class ComplaintCard extends StatelessWidget {
             SizedBox(
               height: 1.h,
             ),
-            Container(
-              width: 100.w,
-              padding: EdgeInsets.all(2.w),
-              decoration: BoxDecoration(
-                color: AppColors.primaryColor.withOpacity(0.15),
-                borderRadius: BorderRadius.circular(1.w),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "SLBFE",
-                    style: AppTextStyles.h4Primary,
+            complaint.responseMessage.isEmpty
+                ? Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      "Not responded yet*",
+                      style: AppTextStyles.p3Primary,
+                    ),
+                  )
+                : Container(
+                    width: 100.w,
+                    padding: EdgeInsets.all(2.w),
+                    decoration: BoxDecoration(
+                      color: AppColors.primaryColor.withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(1.w),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "SLBFE",
+                          style: AppTextStyles.h4Primary,
+                        ),
+                        SizedBox(
+                          height: 1.h,
+                        ),
+                        Text(
+                          complaint.responseMessage,
+                          style: AppTextStyles.p2Dark,
+                        ),
+                      ],
+                    ),
                   ),
-                  SizedBox(
-                    height: 1.h,
-                  ),
-                  Text(
-                    complaint.responseMessage,
-                    style: AppTextStyles.p2Dark,
-                  ),
-                ],
-              ),
-            ),
           ],
         ),
       ),

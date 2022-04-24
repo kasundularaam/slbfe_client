@@ -14,6 +14,7 @@ class NewComplaintCubit extends Cubit<NewComplaintState> {
       final String uid = await SharedServices.getUid();
       emit(NewComplaintLoading());
       bool succeed = await Repository.addComplaint(uid: uid, message: message);
+      emit(NewComplaintSucceed());
     } catch (e) {
       emit(NewComplaintFailed(errorMsg: e.toString()));
     }

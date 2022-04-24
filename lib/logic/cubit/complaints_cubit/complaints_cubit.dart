@@ -15,6 +15,7 @@ class ComplaintsCubit extends Cubit<ComplaintsState> {
       emit(ComplaintsLoading());
       final String uid = await SharedServices.getUid();
       List<Complaint> complaints = await Repository.getComplaints(uid: uid);
+      complaints = complaints.reversed.toList();
       emit(ComplaintsLoaded(complaints: complaints));
     } catch (e) {
       emit(ComplaintsFailed(errorMsg: e.toString()));
