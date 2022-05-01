@@ -4,8 +4,4 @@ class Strings {
 
   static const landingImage = "assets/images/landing.png";
   static const avatarImage = "assets/images/avatar.png";
-
-  static const String portAddress = "8002";
-  static const String serverAddress = "http://192.168.8.102";
-  static const String baseUrl = "$serverAddress:$portAddress";
 }

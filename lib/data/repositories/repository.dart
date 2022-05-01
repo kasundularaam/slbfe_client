@@ -5,6 +5,7 @@ import 'package:http_parser/http_parser.dart';
 import 'package:slbfe_client/core/converters/http_list_converter.dart';
 import 'package:slbfe_client/data/data_providers/data_provider.dart';
 import 'package:slbfe_client/data/models/complaint.dart';
+import 'package:slbfe_client/data/models/connection_user.dart';
 import 'package:slbfe_client/data/models/new_user.dart';
 import 'package:slbfe_client/data/models/slbfe_user.dart';
 import 'package:http/http.dart' as http;
@@ -15,6 +16,67 @@ class Repository {
       final res = await http.get(
         Uri.parse(
           DataProvider.getSlbfeUserUrl(nic: nic),
+        ),
+      );
+      if (res.statusCode == 200) {
+        return SlbfeUser.fromJson(res.body);
+      }
+      throw "Failed to load data";
+    } catch (e) {
+      throw "can not connect to the server!";
+    }
+  }
+
+  static Future<List<String>> getConnectionIds({required String nic}) async {
+    SlbfeUser user = await getSlbfeUser(nic: nic);
+    return user.connections;
+  }
+
+  static Future<bool> isConnected(
+      {required String nic, required String connectionId}) async {
+    SlbfeUser user = await getSlbfeUser(nic: nic);
+    return user.connections.contains(connectionId);
+  }
+
+  static Future<bool> connect(
+      {required String uid, required String connectionId}) async {
+    try {
+      final res = await http.post(
+        Uri.parse(
+          DataProvider.handleConnection(connectionId: connectionId, uid: uid),
+        ),
+      );
+      if (res.statusCode == 200) {
+        return jsonDecode(res.body);
+      }
+      throw "Something went wrong";
+    } catch (e) {
+      throw "can not connect to the server!";
+    }
+  }
+
+  static Future<bool> disConnect(
+      {required String uid, required String connectionId}) async {
+    try {
+      final res = await http.put(
+        Uri.parse(
+          DataProvider.handleConnection(connectionId: connectionId, uid: uid),
+        ),
+      );
+      if (res.statusCode == 200) {
+        return jsonDecode(res.body);
+      }
+      throw "Something went wrong";
+    } catch (e) {
+      throw "can not connect to the server!";
+    }
+  }
+
+  static Future<SlbfeUser> getCitizenById({required String uid}) async {
+    try {
+      final res = await http.get(
+        Uri.parse(
+          DataProvider.getCitizenById(uid: uid),
         ),
       );
       if (res.statusCode == 200) {
@@ -84,8 +146,13 @@ class Repository {
             DataProvider.uploadDocsUrl(nic: nic),
           ))
         ..fields['QuolificationName'] = name
-        ..files.add(await http.MultipartFile.fromString('Image', document,
-            contentType: MediaType('application', 'pdf')));
+        ..files.add(
+          await http.MultipartFile.fromString(
+            'Image',
+            document,
+            contentType: MediaType('application', 'pdf'),
+          ),
+        );
 
       final res = await request.send();
 
@@ -134,6 +201,44 @@ class Repository {
         return true;
       }
       throw "An error occurred";
+    } catch (e) {
+      throw "can not connect to the server!";
+    }
+  }
+
+  static Future<List<ConnectionUser>> getAllUsers({required String uid}) async {
+    try {
+      final res = await http.get(
+        Uri.parse(DataProvider.allCitizens),
+      );
+      if (res.statusCode == 200) {
+        return HttpListConverter.parseAllUsers(res.body, uid);
+      } else {
+        throw "Failed to load data";
+      }
+    } catch (e) {
+      throw "can not connect to the server!";
+    }
+  }
+
+  static Future<List<ConnectionUser>> getConnectUsers(
+      {required List<String> userIds}) async {
+    try {
+      List<ConnectionUser> connectionUsers = [];
+      for (var userId in userIds) {
+        SlbfeUser user = await getCitizenById(uid: userId);
+        connectionUsers.add(
+          ConnectionUser(
+            id: user.id,
+            name: user.name,
+            nic: user.nic,
+            age: user.age,
+            profession: user.profession,
+            email: user.email,
+          ),
+        );
+      }
+      return connectionUsers;
     } catch (e) {
       throw "can not connect to the server!";
     }

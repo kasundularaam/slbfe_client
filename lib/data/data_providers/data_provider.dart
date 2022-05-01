@@ -1,22 +1,31 @@
-import 'package:slbfe_client/core/constants/strings.dart';
+import '../../core/constants/configs.dart';
 
 class DataProvider {
   static String getSlbfeUserUrl({required String nic}) =>
-      "${Strings.baseUrl}/api/Citizens/$nic.js";
+      "${Configs.baseUrl}/api/Citizens/$nic.js";
+
+  static String getCitizenById({required String uid}) =>
+      "${Configs.baseUrl}/api/Citizens/GetCitizenById/$uid.js";
 
   static String verifyInfoUrl({required String nic}) =>
-      "${Strings.baseUrl}/api/Citizens/VerifyInformation/$nic.js";
+      "${Configs.baseUrl}/api/Citizens/VerifyInformation/$nic.js";
 
   static String uploadDocsUrl({required String nic}) =>
-      "${Strings.baseUrl}/api/Citizens/$nic.js";
+      "${Configs.baseUrl}/api/Citizens/$nic.js";
 
-  static String get newUserUrl => "${Strings.baseUrl}/api/Citizens.js";
+  static String get newUserUrl => "${Configs.baseUrl}/api/Citizens.js";
 
   static String loginUserUrl({required String nic, required String password}) =>
-      "${Strings.baseUrl}/api/Citizens/LoginUser/$nic/$password.js";
+      "${Configs.baseUrl}/api/Citizens/LoginUser/$nic/$password.js";
 
   static String getComplaintsUrl({required String uid}) =>
-      "${Strings.baseUrl}/api/Complaint/GetByUserId/$uid.js";
+      "${Configs.baseUrl}/api/Complaint/GetByUserId/$uid.js";
 
-  static String get newComplaintUrl => "${Strings.baseUrl}/api/Complaint/.js";
+  static String get newComplaintUrl => "${Configs.baseUrl}/api/Complaint/.js";
+
+  static String get allCitizens => "${Configs.baseUrl}/api/Citizens/.js";
+
+  static String handleConnection(
+          {required String connectionId, required String uid}) =>
+      "${Configs.baseUrl}/api/Citizens/Connection/$connectionId/$uid.js";
 }
