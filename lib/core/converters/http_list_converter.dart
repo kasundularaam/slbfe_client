@@ -1,8 +1,7 @@
 import 'dart:convert';
 
-import 'package:slbfe_client/data/models/complaint.dart';
-import 'package:slbfe_client/data/models/connection_user.dart';
-import 'package:slbfe_client/data/models/slbfe_user.dart';
+import '../../data/models/complaint.dart';
+import '../../data/models/connection_user.dart';
 
 class HttpListConverter {
   static List<Complaint> parseComplaints(String responseBody) {
@@ -17,11 +16,16 @@ class HttpListConverter {
   static List<ConnectionUser> parseAllUsers(String responseBody, String uid) {
     final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
     List<ConnectionUser> allUsers = parsed
-        .map<SlbfeUser>(
+        .map<ConnectionUser>(
           (json) => ConnectionUser.fromMap(json),
         )
         .toList();
-    allUsers.removeWhere((user) => user.id == uid);
-    return allUsers;
+    List<ConnectionUser> filteredUsers = [];
+    allUsers.map((e) {
+      if (e.id != uid) {
+        filteredUsers.add(e);
+      }
+    }).toList();
+    return filteredUsers;
   }
 }

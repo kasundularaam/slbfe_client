@@ -2,13 +2,14 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:http_parser/http_parser.dart';
 
-import 'package:slbfe_client/core/converters/http_list_converter.dart';
-import 'package:slbfe_client/data/data_providers/data_provider.dart';
-import 'package:slbfe_client/data/models/complaint.dart';
-import 'package:slbfe_client/data/models/connection_user.dart';
-import 'package:slbfe_client/data/models/new_user.dart';
-import 'package:slbfe_client/data/models/slbfe_user.dart';
 import 'package:http/http.dart' as http;
+
+import '../../core/converters/http_list_converter.dart';
+import '../data_providers/data_provider.dart';
+import '../models/complaint.dart';
+import '../models/connection_user.dart';
+import '../models/new_user.dart';
+import '../models/slbfe_user.dart';
 
 class Repository {
   static Future<SlbfeUser> getSlbfeUser({required String nic}) async {
@@ -147,7 +148,7 @@ class Repository {
           ))
         ..fields['QuolificationName'] = name
         ..files.add(
-          await http.MultipartFile.fromString(
+          http.MultipartFile.fromString(
             'Image',
             document,
             contentType: MediaType('application', 'pdf'),
@@ -211,12 +212,14 @@ class Repository {
       final res = await http.get(
         Uri.parse(DataProvider.allCitizens),
       );
+
       if (res.statusCode == 200) {
         return HttpListConverter.parseAllUsers(res.body, uid);
       } else {
         throw "Failed to load data";
       }
     } catch (e) {
+      log(e.toString());
       throw "can not connect to the server!";
     }
   }

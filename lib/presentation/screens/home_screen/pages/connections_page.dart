@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
-import 'package:slbfe_client/core/themes/app_colors.dart';
-import 'package:slbfe_client/logic/cubit/connections_cubit/connections_cubit.dart';
-import 'package:slbfe_client/presentation/screens/home_screen/widgets/connection_card.dart';
 
+import '../../../../core/themes/app_colors.dart';
 import '../../../../core/themes/app_text_styles.dart';
+import '../../../../logic/cubit/connections_cubit/connections_cubit.dart';
+import '../../../../logic/cubit/cubit/connection_cubit.dart';
+import '../widgets/connection_card.dart';
 
 class ConnectionsPage extends StatefulWidget {
   const ConnectionsPage({Key? key}) : super(key: key);
@@ -15,15 +16,22 @@ class ConnectionsPage extends StatefulWidget {
 }
 
 class _ConnectionsPageState extends State<ConnectionsPage> {
+  bool isUsers = true;
   @override
   Widget build(BuildContext context) {
+    if (isUsers) {
+      BlocProvider.of<ConnectionsCubit>(context).loadUsers();
+    } else {
+      BlocProvider.of<ConnectionsCubit>(context).loadConnections();
+    }
+
     return Column(
       children: [
         SizedBox(
           height: 3.h,
         ),
         Text(
-          "Complaints",
+          "Connections",
           style: AppTextStyles.h2Primary,
         ),
         SizedBox(
@@ -33,21 +41,34 @@ class _ConnectionsPageState extends State<ConnectionsPage> {
           children: [
             Expanded(
                 child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  isUsers = true;
+                });
+              },
               child: Text(
                 "Users",
-                style: AppTextStyles.h3Primary,
+                style: isUsers ? AppTextStyles.p1Primary : AppTextStyles.p1Dark,
               ),
             )),
             Expanded(
                 child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  isUsers = false;
+                });
+              },
               child: Text(
                 "Connections",
-                style: AppTextStyles.h3Primary,
+                style: isUsers ? AppTextStyles.p1Dark : AppTextStyles.p1Primary,
               ),
             ))
           ],
+        ),
+        Container(
+          color: AppColors.primaryColor,
+          width: 100.w,
+          height: 0.1.h,
         ),
         BlocConsumer<ConnectionsCubit, ConnectionsState>(
           listener: (context, state) {
@@ -69,8 +90,11 @@ class _ConnectionsPageState extends State<ConnectionsPage> {
                   physics: const BouncingScrollPhysics(),
                   padding: EdgeInsets.symmetric(horizontal: 3.w),
                   itemCount: state.connectionUsers.length,
-                  itemBuilder: (context, index) => ConnectionCard(
-                      connectionUser: state.connectionUsers[index]),
+                  itemBuilder: (context, index) => BlocProvider(
+                    create: (context) => UserConnectionCubit(),
+                    child: ConnectionCard(
+                        connectionUser: state.connectionUsers[index]),
+                  ),
                 ),
               );
             }

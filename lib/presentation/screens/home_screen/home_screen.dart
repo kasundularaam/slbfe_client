@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:slbfe_client/logic/cubit/complaints_cubit/complaints_cubit.dart';
+import 'package:slbfe_client/logic/cubit/connections_cubit/connections_cubit.dart';
 import 'package:slbfe_client/logic/cubit/new_complaint_cubit/new_complaint_cubit.dart';
 import 'package:slbfe_client/logic/cubit/slbfe_user_cubit/slbfe_user_cubit.dart';
 import 'package:slbfe_client/logic/cubit/upload_docs_cubit/upload_docs_cubit.dart';
 import 'package:slbfe_client/presentation/screens/home_screen/pages/complaint_page.dart';
+import 'package:slbfe_client/presentation/screens/home_screen/pages/connections_page.dart';
 
 import '../../../core/themes/app_colors.dart';
 import 'pages/home_page.dart';
@@ -40,6 +42,10 @@ class _HomeScreenState extends State<HomeScreen> {
       ],
       child: const ComplaintPage(),
     ),
+    BlocProvider(
+      create: (context) => ConnectionsCubit(),
+      child: const ConnectionsPage(),
+    ),
   ];
   @override
   Widget build(BuildContext context) {
@@ -63,6 +69,11 @@ class _HomeScreenState extends State<HomeScreen> {
             BottomNavigationBarItem(
               icon: Icon(Icons.feedback_rounded),
               label: "Complaint",
+              backgroundColor: AppColors.primaryColor,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.group_rounded),
+              label: "Connections",
               backgroundColor: AppColors.primaryColor,
             ),
           ],
