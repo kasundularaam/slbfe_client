@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:http_parser/http_parser.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:slbfe_client/data/models/vacancy.dart';
 
 import '../../core/converters/http_list_converter.dart';
 import '../data_providers/data_provider.dart';
@@ -242,6 +243,21 @@ class Repository {
         );
       }
       return connectionUsers;
+    } catch (e) {
+      throw "can not connect to the server!";
+    }
+  }
+
+  static Future<List<Vacancy>> getVacancies() async {
+    try {
+      final res = await http.get(
+        Uri.parse(DataProvider.vacancies),
+      );
+      if (res.statusCode == 200) {
+        return HttpListConverter.parseVacancies(res.body);
+      } else {
+        throw "Failed to load data";
+      }
     } catch (e) {
       throw "can not connect to the server!";
     }

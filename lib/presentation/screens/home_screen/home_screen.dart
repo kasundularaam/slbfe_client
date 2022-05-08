@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:slbfe_client/logic/cubit/vacancies_cubit/vacancies_cubit.dart';
+import 'package:slbfe_client/presentation/screens/home_screen/pages/vacancies_page.dart';
 
 import '../../../core/themes/app_colors.dart';
 import '../../../logic/cubit/complaints_cubit/complaints_cubit.dart';
@@ -35,6 +37,10 @@ class _HomeScreenState extends State<HomeScreen> {
       ],
       child: const HomePage(),
     ),
+    BlocProvider(
+      create: (context) => VacanciesCubit(),
+      child: const VacanciesPage(),
+    ),
     MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => ComplaintsCubit()),
@@ -64,6 +70,11 @@ class _HomeScreenState extends State<HomeScreen> {
             BottomNavigationBarItem(
               icon: Icon(Icons.home_rounded),
               label: "Home",
+              backgroundColor: AppColors.primaryColor,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.work_rounded),
+              label: "Vacancies",
               backgroundColor: AppColors.primaryColor,
             ),
             BottomNavigationBarItem(

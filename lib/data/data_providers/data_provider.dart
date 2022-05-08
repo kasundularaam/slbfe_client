@@ -28,4 +28,6 @@ class DataProvider {
   static String handleConnection(
           {required String connectionId, required String uid}) =>
       "${Configs.baseUrl}/api/Citizens/Connection/$connectionId/$uid.js";
+
+  static String get vacancies => "${Configs.baseUrl}/api/Vacancies/.js";
 }

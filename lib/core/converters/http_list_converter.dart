@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:slbfe_client/data/models/vacancy.dart';
+
 import '../../data/models/complaint.dart';
 import '../../data/models/connection_user.dart';
 
@@ -27,5 +29,14 @@ class HttpListConverter {
       }
     }).toList();
     return filteredUsers;
+  }
+
+  static List<Vacancy> parseVacancies(String responseBody) {
+    final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+    return parsed
+        .map<Vacancy>(
+          (json) => Vacancy.fromMap(json),
+        )
+        .toList();
   }
 }
