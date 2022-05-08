@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:slbfe_client/data/models/new_user.dart';
-import 'package:slbfe_client/data/repositories/repository.dart';
 
+import '../../../data/models/new_user.dart';
 import '../../../data/models/slbfe_user.dart';
+import '../../../data/repositories/repository.dart';
 import '../../../data/shared/shared_service.dart';
 
 part 'register_state.dart';

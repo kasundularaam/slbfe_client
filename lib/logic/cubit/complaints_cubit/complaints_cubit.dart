@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
-import 'package:slbfe_client/data/models/complaint.dart';
-import 'package:slbfe_client/data/repositories/repository.dart';
 
+import '../../../data/models/complaint.dart';
+import '../../../data/repositories/repository.dart';
 import '../../../data/shared/shared_service.dart';
 
 part 'complaints_state.dart';

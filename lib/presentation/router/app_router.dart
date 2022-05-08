@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:slbfe_client/logic/cubit/login_cubit/login_cubit.dart';
-import 'package:slbfe_client/logic/cubit/regser_cubit/register_cubit.dart';
 
 import '../../core/exceptions/route_exception.dart';
+import '../../logic/cubit/login_cubit/login_cubit.dart';
+import '../../logic/cubit/regser_cubit/register_cubit.dart';
 import '../screens/auth/login_page.dart';
 import '../screens/auth/register_page.dart';
 import '../screens/home_screen/home_screen.dart';

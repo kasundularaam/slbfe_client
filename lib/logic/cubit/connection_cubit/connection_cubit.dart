@@ -1,7 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:slbfe_client/data/repositories/repository.dart';
-import 'package:slbfe_client/data/shared/shared_service.dart';
+
+import '../../../data/repositories/repository.dart';
+import '../../../data/shared/shared_service.dart';
 
 part 'connection_state.dart';
 

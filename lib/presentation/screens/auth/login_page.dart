@@ -2,14 +2,14 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
-import 'package:slbfe_client/core/themes/app_text_styles.dart';
-import 'package:slbfe_client/logic/cubit/login_cubit/login_cubit.dart';
-import 'package:slbfe_client/presentation/screens/auth/widgets/auth_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/constants/strings.dart';
 import '../../../core/themes/app_colors.dart';
+import '../../../core/themes/app_text_styles.dart';
+import '../../../logic/cubit/login_cubit/login_cubit.dart';
 import '../../router/app_router.dart';
+import 'widgets/auth_button.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);

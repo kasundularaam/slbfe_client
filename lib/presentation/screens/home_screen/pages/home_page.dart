@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
-import 'package:slbfe_client/core/constants/strings.dart';
-import 'package:slbfe_client/core/themes/app_colors.dart';
-import 'package:slbfe_client/core/themes/app_text_styles.dart';
-import 'package:slbfe_client/logic/cubit/slbfe_user_cubit/slbfe_user_cubit.dart';
-import 'package:slbfe_client/logic/cubit/upload_docs_cubit/upload_docs_cubit.dart';
-import 'package:slbfe_client/presentation/screens/home_screen/widgets/document_card.dart';
-import 'package:slbfe_client/presentation/screens/home_screen/widgets/location_card.dart';
-import 'package:slbfe_client/presentation/screens/home_screen/widgets/user_card.dart';
+
+import '../../../../core/constants/strings.dart';
+import '../../../../core/themes/app_colors.dart';
+import '../../../../core/themes/app_text_styles.dart';
+import '../../../../logic/cubit/slbfe_user_cubit/slbfe_user_cubit.dart';
+import '../../../../logic/cubit/upload_docs_cubit/upload_docs_cubit.dart';
+import '../widgets/document_card.dart';
+import '../widgets/location_card.dart';
+import '../widgets/user_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

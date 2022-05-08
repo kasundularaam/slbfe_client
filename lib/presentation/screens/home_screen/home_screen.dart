@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:slbfe_client/logic/cubit/complaints_cubit/complaints_cubit.dart';
-import 'package:slbfe_client/logic/cubit/connections_cubit/connections_cubit.dart';
-import 'package:slbfe_client/logic/cubit/new_complaint_cubit/new_complaint_cubit.dart';
-import 'package:slbfe_client/logic/cubit/slbfe_user_cubit/slbfe_user_cubit.dart';
-import 'package:slbfe_client/logic/cubit/upload_docs_cubit/upload_docs_cubit.dart';
-import 'package:slbfe_client/presentation/screens/home_screen/pages/complaint_page.dart';
-import 'package:slbfe_client/presentation/screens/home_screen/pages/connections_page.dart';
 
 import '../../../core/themes/app_colors.dart';
+import '../../../logic/cubit/complaints_cubit/complaints_cubit.dart';
+import '../../../logic/cubit/connections_cubit/connections_cubit.dart';
+import '../../../logic/cubit/new_complaint_cubit/new_complaint_cubit.dart';
+import '../../../logic/cubit/slbfe_user_cubit/slbfe_user_cubit.dart';
+import '../../../logic/cubit/upload_docs_cubit/upload_docs_cubit.dart';
+import 'pages/complaint_page.dart';
+import 'pages/connections_page.dart';
 import 'pages/home_page.dart';
 
 class HomeScreen extends StatefulWidget {

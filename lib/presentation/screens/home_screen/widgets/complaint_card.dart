@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-import 'package:slbfe_client/data/models/complaint.dart';
-
 import '../../../../core/themes/app_colors.dart';
 import '../../../../core/themes/app_text_styles.dart';
+import '../../../../data/models/complaint.dart';
 
 class ComplaintCard extends StatelessWidget {
   final Complaint complaint;

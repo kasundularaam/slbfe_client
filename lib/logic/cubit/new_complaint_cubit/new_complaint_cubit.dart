@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:slbfe_client/data/repositories/repository.dart';
 
+import '../../../data/repositories/repository.dart';
 import '../../../data/shared/shared_service.dart';
 
 part 'new_complaint_state.dart';

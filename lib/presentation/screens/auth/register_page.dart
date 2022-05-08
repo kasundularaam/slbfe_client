@@ -4,12 +4,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:location/location.dart';
 import 'package:sizer/sizer.dart';
-import 'package:slbfe_client/data/models/new_user.dart';
-import 'package:slbfe_client/data/repositories/location_services.dart';
-import 'package:slbfe_client/logic/cubit/regser_cubit/register_cubit.dart';
 
 import '../../../core/themes/app_colors.dart';
 import '../../../core/themes/app_text_styles.dart';
+import '../../../data/models/new_user.dart';
+import '../../../data/repositories/location_services.dart';
+import '../../../logic/cubit/regser_cubit/register_cubit.dart';
 import '../../router/app_router.dart';
 import 'widgets/auth_button.dart';
 

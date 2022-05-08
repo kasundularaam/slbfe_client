@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-import 'package:slbfe_client/data/models/slbfe_user.dart';
-
 import '../../../../core/constants/strings.dart';
 import '../../../../core/themes/app_colors.dart';
 import '../../../../core/themes/app_text_styles.dart';
+import '../../../../data/models/slbfe_user.dart';
 
 class UserCard extends StatelessWidget {
   final SlbfeUser user;

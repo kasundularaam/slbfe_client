@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
-import 'package:slbfe_client/core/constants/strings.dart';
-import 'package:slbfe_client/core/themes/app_text_styles.dart';
-import 'package:slbfe_client/data/shared/shared_service.dart';
-import 'package:slbfe_client/presentation/router/app_router.dart';
-
+import '../../../core/constants/strings.dart';
 import '../../../core/themes/app_colors.dart';
+import '../../../core/themes/app_text_styles.dart';
+import '../../../data/shared/shared_service.dart';
+import '../../router/app_router.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({Key? key}) : super(key: key);

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
-import 'package:slbfe_client/core/themes/app_text_styles.dart';
 
 import '../../../../core/themes/app_colors.dart';
+import '../../../../core/themes/app_text_styles.dart';
 import '../../../../data/models/connection_user.dart';
-import '../../../../logic/cubit/cubit/connection_cubit.dart';
+import '../../../../logic/cubit/connection_cubit/connection_cubit.dart';
 
 class ConnectionCard extends StatefulWidget {
   final ConnectionUser connectionUser;

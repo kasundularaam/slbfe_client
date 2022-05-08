@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
-import 'package:slbfe_client/core/themes/app_colors.dart';
-import 'package:slbfe_client/logic/cubit/complaints_cubit/complaints_cubit.dart';
-import 'package:slbfe_client/logic/cubit/new_complaint_cubit/new_complaint_cubit.dart';
-import 'package:slbfe_client/presentation/screens/home_screen/widgets/complaint_card.dart';
 
+import '../../../../core/themes/app_colors.dart';
 import '../../../../core/themes/app_text_styles.dart';
+import '../../../../logic/cubit/complaints_cubit/complaints_cubit.dart';
+import '../../../../logic/cubit/new_complaint_cubit/new_complaint_cubit.dart';
+import '../widgets/complaint_card.dart';
 
 class ComplaintPage extends StatefulWidget {
   const ComplaintPage({Key? key}) : super(key: key);

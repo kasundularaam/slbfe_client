@@ -4,8 +4,8 @@ import 'package:sizer/sizer.dart';
 
 import '../../../../core/themes/app_colors.dart';
 import '../../../../core/themes/app_text_styles.dart';
+import '../../../../logic/cubit/connection_cubit/connection_cubit.dart';
 import '../../../../logic/cubit/connections_cubit/connections_cubit.dart';
-import '../../../../logic/cubit/cubit/connection_cubit.dart';
 import '../widgets/connection_card.dart';
 
 class ConnectionsPage extends StatefulWidget {

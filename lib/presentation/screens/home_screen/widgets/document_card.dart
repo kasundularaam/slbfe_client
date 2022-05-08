@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
-import 'package:slbfe_client/data/files/files_service.dart';
-import 'package:slbfe_client/logic/cubit/upload_docs_cubit/upload_docs_cubit.dart';
 
 import '../../../../core/themes/app_colors.dart';
 import '../../../../core/themes/app_text_styles.dart';
+import '../../../../data/files/files_service.dart';
+import '../../../../logic/cubit/upload_docs_cubit/upload_docs_cubit.dart';
 
 class DocumentCard extends StatelessWidget {
   const DocumentCard({Key? key}) : super(key: key);
