@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:slbfe_client/presentation/router/app_router.dart';
 
 import '../../../../core/themes/app_colors.dart';
 import '../../../../core/themes/app_text_styles.dart';
 import '../../../../data/models/vacancy.dart';
+import '../../../router/app_router.dart';
 
 class VacancyCard extends StatelessWidget {
   final Vacancy vacancy;
@@ -32,15 +32,48 @@ class VacancyCard extends StatelessWidget {
               SizedBox(
                 height: 1.h,
               ),
-              Text(
-                vacancy.jobDescription,
-                style: AppTextStyles.p2Dark,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Candidates",
+                        style: AppTextStyles.p2Dark,
+                      ),
+                      Text(
+                        vacancy.candidates.length.toString(),
+                        style: AppTextStyles.p2Primary,
+                      ),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        "Deadline",
+                        style: AppTextStyles.p2Dark,
+                      ),
+                      Text(
+                        vacancy.deadline,
+                        style: AppTextStyles.p2(Colors.red),
+                      ),
+                    ],
+                  ),
+                ],
               ),
               SizedBox(
                 height: 1.h,
               ),
+              const Divider(),
+              SizedBox(
+                height: 1.h,
+              ),
               Text(
-                "Deadline: ${vacancy.deadline}",
+                vacancy.jobDescription,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
                 style: AppTextStyles.p2Dark,
               ),
             ],

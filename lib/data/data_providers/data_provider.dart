@@ -30,4 +30,13 @@ class DataProvider {
       "${Configs.baseUrl}/api/Citizens/Connection/$connectionId/$uid.js";
 
   static String get vacancies => "${Configs.baseUrl}/api/Vacancies/.js";
+
+  static String getOrganizationUrl({required String userId}) =>
+      "${Configs.baseUrl}/api/Users/GetById/$userId.js";
+
+  static String get applyForJobVacancyUrl =>
+      "${Configs.baseUrl}/api/Vacancies/ApplyForJobVacancy.js";
+
+  static String getVacanciesForCitizenIdUrl({required String uid}) =>
+      "${Configs.baseUrl}/api/Vacancies/GetAllVacanciesForCitizensId/$uid.js";
 }

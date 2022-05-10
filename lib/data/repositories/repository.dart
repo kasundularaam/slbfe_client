@@ -1,16 +1,16 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:http_parser/http_parser.dart';
 
 import 'package:http/http.dart' as http;
-import 'package:slbfe_client/data/models/vacancy.dart';
 
 import '../../core/converters/http_list_converter.dart';
 import '../data_providers/data_provider.dart';
 import '../models/complaint.dart';
 import '../models/connection_user.dart';
+import '../models/hrm.dart';
 import '../models/new_user.dart';
 import '../models/slbfe_user.dart';
+import '../models/vacancy.dart';
 
 class Repository {
   static Future<SlbfeUser> getSlbfeUser({required String nic}) async {
@@ -101,7 +101,6 @@ class Repository {
           "Content-Type": "application/json; charset=UTF-8",
         },
       );
-      log(res.statusCode.toString());
       if (res.statusCode == 200) {
         if (jsonDecode(res.body)) {
           return true;
@@ -128,7 +127,6 @@ class Repository {
           body: newUser.toJson());
 
       if (res.statusCode == 200) {
-        log(SlbfeUser.fromJson(res.body).toString());
         return SlbfeUser.fromJson(res.body);
       }
       throw "An error occurred";
@@ -157,15 +155,12 @@ class Repository {
         );
 
       final res = await request.send();
-
-      log(res.statusCode.toString());
       if (res.statusCode == 200) {
         return true;
       } else {
         return false;
       }
     } catch (e) {
-      log(e.toString());
       throw "can not connect to the server!";
     }
   }
@@ -220,7 +215,6 @@ class Repository {
         throw "Failed to load data";
       }
     } catch (e) {
-      log(e.toString());
       throw "can not connect to the server!";
     }
   }
@@ -252,6 +246,61 @@ class Repository {
     try {
       final res = await http.get(
         Uri.parse(DataProvider.vacancies),
+      );
+      if (res.statusCode == 200) {
+        return HttpListConverter.parseVacancies(res.body);
+      } else {
+        throw "Failed to load data";
+      }
+    } catch (e) {
+      throw "can not connect to the server!";
+    }
+  }
+
+  static Future<HRM> getOrganization({required String userId}) async {
+    try {
+      final res = await http.get(
+        Uri.parse(
+          DataProvider.getOrganizationUrl(userId: userId),
+        ),
+      );
+      if (res.statusCode == 200) {
+        return HRM.fromJson(res.body);
+      }
+      throw "Failed to load data";
+    } catch (e) {
+      throw "can not connect to the server!";
+    }
+  }
+
+  static Future<bool> applyJob(
+      {required String citizenId, required String vacancyId}) async {
+    try {
+      final res = await http.put(
+          Uri.parse(
+            DataProvider.applyForJobVacancyUrl,
+          ),
+          headers: <String, String>{
+            "Content-Type": "application/json; charset=UTF-8",
+          },
+          body: jsonEncode(<String, String>{
+            "vacancyId": vacancyId,
+            "citizenId": citizenId
+          }));
+      if (res.statusCode == 200) {
+        return jsonDecode(res.body);
+      }
+      throw "Something went wrong";
+    } catch (e) {
+      throw "can not connect to the server!";
+    }
+  }
+
+  static Future<List<Vacancy>> getVacanciesByCitizen(
+      {required String uid}) async {
+    try {
+      final res = await http.get(
+        Uri.parse(DataProvider.getVacanciesForCitizenIdUrl(uid: uid)),
       );
       if (res.statusCode == 200) {
         return HttpListConverter.parseVacancies(res.body);

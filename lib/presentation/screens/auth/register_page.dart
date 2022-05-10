@@ -9,7 +9,7 @@ import '../../../core/themes/app_colors.dart';
 import '../../../core/themes/app_text_styles.dart';
 import '../../../data/models/new_user.dart';
 import '../../../data/repositories/location_services.dart';
-import '../../../logic/cubit/regser_cubit/register_cubit.dart';
+import '../../../logic/cubit/register_cubit/register_cubit.dart';
 import '../../router/app_router.dart';
 import 'widgets/auth_button.dart';
 

@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../core/exceptions/route_exception.dart';
 import '../../data/models/vacancy.dart';
 import '../../logic/cubit/login_cubit/login_cubit.dart';
-import '../../logic/cubit/regser_cubit/register_cubit.dart';
-import '../../logic/cubit/vacancies_cubit/vacancies_cubit.dart';
+import '../../logic/cubit/organization_cubit/organization_cubit.dart';
+import '../../logic/cubit/register_cubit/register_cubit.dart';
 import '../screens/auth/login_page.dart';
 import '../screens/auth/register_page.dart';
 import '../screens/home_screen/home_screen.dart';
@@ -49,7 +49,7 @@ class AppRouter {
         final Vacancy vacancy = settings.arguments as Vacancy;
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (context) => VacanciesCubit(),
+            create: (context) => OrganizationCubit(),
             child: VacancyPage(
               vacancy: vacancy,
             ),

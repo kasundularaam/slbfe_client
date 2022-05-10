@@ -77,33 +77,6 @@ class DocumentCard extends StatelessWidget {
               "Upload your CV and certificates here.",
               style: AppTextStyles.p2Dark,
             ),
-            // SizedBox(
-            //   height: 2.h,
-            // ),
-            // Container(
-            //   width: 100.w,
-            //   padding: EdgeInsets.all(2.w),
-            //   decoration: BoxDecoration(
-            //     color: AppColors.primaryColor.withOpacity(0.15),
-            //     borderRadius: BorderRadius.circular(1.w),
-            //   ),
-            //   child: Column(
-            //     crossAxisAlignment: CrossAxisAlignment.start,
-            //     children: [
-            //       Text(
-            //         "Documents accepted",
-            //         style: AppTextStyles.h4Primary,
-            //       ),
-            //       SizedBox(
-            //         height: 1.h,
-            //       ),
-            //       Text(
-            //         "Document you uploaded has accepted by SLBFE",
-            //         style: AppTextStyles.p2Dark,
-            //       ),
-            //     ],
-            //   ),
-            // ),
             SizedBox(
               height: 1.h,
             ),
